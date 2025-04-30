@@ -46,7 +46,7 @@ func getAccount(c *gin.Context) {
 		case "5":
 			c.JSON(http.StatusOK, Account{ID: 5, Name: "Jess' Children's Account", Balance: 130.00, SortCode: "12-45-78", AccountNumber: "12345668"})
 		case "6":
-			c.JSON(http.StatusOK, Account{ID: 6, Name: "Max's Childnre's Account", Balance: 600.00, SortCode: "12-45-78", AccountNumber: "12344678"})
+			c.JSON(http.StatusOK, Account{ID: 6, Name: "Max's Children's Account", Balance: 600.00, SortCode: "12-45-78", AccountNumber: "12344678"})
 		case "7":
 			c.JSON(http.StatusOK, Account{ID: 7, Name: "Children's Current Account (A Jones)", Balance: 500.00, SortCode: "12-45-78", AccountNumber: "85274169"})
 		case "8":
