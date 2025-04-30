@@ -41,4 +41,29 @@ paths:
       summary: Get an account by ID
       tags:
         - users
+  /insights/{id}:
+    get:
+      consumes:
+        - application/json
+      description: Get insight by ID
+      parameters:
+        - description: Insight ID
+          in: path
+          name: id
+          required: true
+          type: integer
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/main.Insight"
+        "400":
+          description: Bad request
+          schema:
+            type: string
+      summary: Get an insight by ID
+      tags:
+        - users
 swagger: "2.0"
