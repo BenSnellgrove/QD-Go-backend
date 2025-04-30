@@ -16,7 +16,7 @@ info:
   title: Go Swagger Example API
   version: "1.0"
 paths:
-  /account/{id}:
+  /accounts/{id}:
     get:
       consumes:
         - application/json
