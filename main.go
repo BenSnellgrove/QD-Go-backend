@@ -4,23 +4,15 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-
-	_ "go-swagger-example/docs" // import generated docs
+	// _ "go-swagger-example/docs" // import generated docs
 )
-
-// @title Go Swagger Example API
-// @version 1.0
-// @description This is a sample server for demonstrating Swagger in Go using Gin.
-// @host localhost:8080
-// @BasePath /api/v1
 
 func main() {
 	r := gin.Default()
 
 	v1 := r.Group("/api/v1")
 	{
-		v1.GET("/users/:id", getUser)
-		v1.POST("/users", createUser)
+		v1.GET("/account/:id", getAccount)
 	}
 
 	// Swagger docs route
@@ -31,42 +23,36 @@ func main() {
 	r.Run(":3001")
 }
 
-// User represents a user model
-type User struct {
+type Account struct {
 	ID   int    `json:"id" example:"1"`
-	Name string `json:"name" example:"John Doe"`
+	Name string `json:"name" example:"Current account"`
+	Balance float32 `json:"balance" example:"100.0"`
+	SortCode string `json:"sort_code" example:"12-34-56"`
+	AccountNumber string `json:"account_number" example:"12345687"`
 }
 
-// getUser godoc
-// @Summary Get a user by ID
-// @Description Get user by ID
-// @Tags users
-// @Accept json
-// @Produce json
-// @Param id path int true "User ID"
-// @Success 200 {object} User
-// @Failure 400 {string} string "Bad request"
-// @Router /users/{id} [get]
-func getUser(c *gin.Context) {
+func getAccount(c *gin.Context) {
 	id := c.Param("id")
-	c.JSON(http.StatusOK, User{ID: 1, Name: "User " + id})
-}
 
-// createUser godoc
-// @Summary Create a new user
-// @Description Create user with JSON payload
-// @Tags users
-// @Accept json
-// @Produce json
-// @Param user body User true "User to create"
-// @Success 200 {object} User
-// @Router /users [post]
-func createUser(c *gin.Context) {
-	var user User
-	if err := c.ShouldBindJSON(&user); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
+	switch id {
+		case "1":
+			c.JSON(http.StatusOK, Account{ID: 1, Name: "Personal Current Account", Balance: 2023.00, SortCode: "12-45-78", AccountNumber: "12345678"})
+		case "2":
+			c.JSON(http.StatusOK, Account{ID: 2, Name: "Family Savings", Balance: 10000.00, SortCode: "12-45-78", AccountNumber: "87654321"})
+		case "3":
+			c.JSON(http.StatusOK, Account{ID: 3, Name: "Mortgage Account", Balance: 155685.00, SortCode: "", AccountNumber: "987650234"})
+		case "4":
+			c.JSON(http.StatusOK, Account{ID: 4, Name: "Sam's Children's Account", Balance: 100.00, SortCode: "12-45-78", AccountNumber: "98766443"})
+		case "5":
+			c.JSON(http.StatusOK, Account{ID: 5, Name: "Jess' Children's Account", Balance: 130.00, SortCode: "12-45-78", AccountNumber: "12345668"})
+		case "6":
+			c.JSON(http.StatusOK, Account{ID: 6, Name: "Max's Childnre's Account", Balance: 600.00, SortCode: "12-45-78", AccountNumber: "12344678"})
+		case "7":
+			c.JSON(http.StatusOK, Account{ID: 7, Name: "Children's Current Account (A Jones)", Balance: 500.00, SortCode: "12-45-78", AccountNumber: "85274169"})
+		case "8":
+			c.JSON(http.StatusOK, Account{ID: 8, Name: "Junior ISA (A Jones)", Balance: 2023.00, SortCode: "12-45-78", AccountNumber: "45679888"})
+		default:
+			c.JSON(http.StatusBadRequest, nil)
+
 	}
-	user.ID = 123 // mock ID
-	c.JSON(http.StatusOK, user)
 }
